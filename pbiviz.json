@@ -9,9 +9,14 @@
     "supportUrl": "https://community.fabric.microsoft.com/",
     "gitHubUrl": "https://github.com/microsoft/PowerBI-visuals-tools"
   },
-  "apiVersion": "5.3.0",
-  "author": {"name": "Vertical Measure Card", "email": "visual.support@example.org"},
-  "assets": {"icon": "assets/icon.png"},
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Vertical Measure Card",
+    "email": "visual.support@example.org"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
   "style": "style/visual.less",
   "capabilities": "capabilities.json",
   "externalJS": null,

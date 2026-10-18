@@ -2,10 +2,13 @@
   "name": "vertical-measure-card",
   "version": "1.0.0",
   "private": true,
-  "scripts": {"build": "pbiviz package", "package": "pbiviz package"},
+  "scripts": {
+    "build": "pbiviz package",
+    "package": "pbiviz package"
+  },
   "devDependencies": {
     "powerbi-visuals-tools": "^6.2.0",
-    "powerbi-visuals-api": "^5.3.0",
+    "powerbi-visuals-api": "~5.11.1",
     "typescript": "^5.5.4"
   }
 }

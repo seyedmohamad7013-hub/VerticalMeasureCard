@@ -13,7 +13,8 @@
     "experimentalDecorators": true,
     "esModuleInterop": true
   },
-  "files": [
-    "src/visual.ts"
+  "include": [
+    "src/**/*.ts",
+    ".tmp/precompile/**/*.ts"
   ]
 }

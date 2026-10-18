@@ -71,7 +71,7 @@ export class Visual implements IVisual {
     private width: number = 0;
     private height: number = 0;
 
-    constructor(options: VisualConstructorOptions) {
+    constructor(options?: VisualConstructorOptions) {
         this.root = document.createElement("div");
         this.root.className = "verticalMeasureCardRoot";
         this.root.style.cssText = "width:100%;height:100%;overflow:hidden;box-sizing:border-box";
@@ -84,7 +84,7 @@ export class Visual implements IVisual {
         this.svg.appendChild(this.background);
         this.svg.appendChild(this.label);
         this.root.appendChild(this.svg);
-        options.element.appendChild(this.root);
+        if (options && options.element) options.element.appendChild(this.root);
     }
 
     public update(options: VisualUpdateOptions): void {
@@ -166,12 +166,12 @@ export class Visual implements IVisual {
     public enumerateObjectInstances(options: EnumerateVisualObjectInstancesOptions): VisualObjectInstance[] {
         const s = this.settings;
         switch (options.objectName) {
-            case "direction": return [{objectName: "direction", properties: { orientation: s.orientation }, selector: null}];
-            case "textStyle": return [{objectName: "textStyle", selector: null, properties: {
+            case "direction": return [{objectName: "direction", properties: { orientation: s.orientation }}];
+            case "textStyle": return [{objectName: "textStyle", properties: {
                 fontFamily: s.fontFamily, fontSize: s.fontSize, bold: s.bold, fontColor: fill(s.fontColor),
                 hAlign: s.hAlign, vAlign: s.vAlign, autoFit: s.autoFit, padding: s.padding
             }}];
-            case "cardBackground": return [{objectName: "cardBackground", selector: null, properties: {
+            case "cardBackground": return [{objectName: "cardBackground", properties: {
                 backgroundColor: fill(s.backgroundColor), transparency: s.transparency,
                 showBorder: s.showBorder, borderColor: fill(s.borderColor), borderWidth: s.borderWidth,
                 cornerRadius: s.cornerRadius
