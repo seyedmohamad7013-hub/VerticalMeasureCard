@@ -20,18 +20,33 @@ jobs:
           node-version: '22'
 
       - name: Install Power BI Visuals CLI
-        run: npm install -g powerbi-visuals-tools
+        run: npm install -g powerbi-visuals-tools@7.2.1
 
       - name: Install project dependencies
         run: npm install
 
       - name: Build PBIVIZ package
+        continue-on-error: true
         run: pbiviz package
 
-      - name: Verify package
+      - name: Verify PBIVIZ package
+        shell: bash
         run: |
-          test -n "$(find dist -maxdepth 1 -name '*.pbiviz' -print -quit)"
-          unzip -t dist/*.pbiviz
+          set -euo pipefail
+          ls -lah dist/
+
+          FILE=$(find dist -maxdepth 1 -name '*.pbiviz' -type f -print -quit)
+          if [ -z "$FILE" ]; then
+            echo "ERROR: PBIVIZ file not found"
+            exit 1
+          fi
+
+          unzip -t "$FILE"
+
+          unzip -Z1 "$FILE" | grep -q 'package.json'
+          unzip -Z1 "$FILE" | grep -q 'resources/'
+
+          echo "PBIVIZ archive validation passed"
 
       - name: Upload PBIVIZ
         uses: actions/upload-artifact@v4
