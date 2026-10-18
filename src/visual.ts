@@ -126,3 +126,57 @@ export class Visual implements IVisual {
         this.background.setAttribute("width", String(w));
         this.background.setAttribute("height", String(h));
         this.background.setAttribute("rx", String(s.cornerRadius));
+        this.background.setAttribute("ry", String(s.cornerRadius));
+        this.background.setAttribute("fill", s.backgroundColor);
+        this.background.setAttribute("fill-opacity", String(1 - s.transparency / 100));
+        this.background.setAttribute("stroke", s.showBorder ? s.borderColor : "none");
+        this.background.setAttribute("stroke-width", String(s.borderWidth));
+        this.label.textContent = this.value;
+        this.label.setAttribute("font-family", s.fontFamily);
+        this.label.setAttribute("font-weight", s.bold ? "700" : "400");
+        this.label.setAttribute("fill", s.fontColor);
+        const vertical = s.orientation !== "horizontal";
+        const angle = s.orientation === "topDown" ? 90 : vertical ? -90 : 0;
+        const logicalW = Math.max(0, (vertical ? h : w) - 2 * s.padding);
+        const logicalH = Math.max(0, (vertical ? w : h) - 2 * s.padding);
+        const anchor = s.hAlign === "start" ? "start" : s.hAlign === "end" ? "end" : "middle";
+        const x = anchor === "start" ? -logicalW / 2 : anchor === "end" ? logicalW / 2 : 0;
+        const baseline = s.vAlign === "start" ? "hanging" : s.vAlign === "end" ? "text-after-edge" : "middle";
+        const y = s.vAlign === "start" ? -logicalH / 2 : s.vAlign === "end" ? logicalH / 2 : 0;
+        this.label.setAttribute("text-anchor", anchor);
+        this.label.setAttribute("dominant-baseline", baseline);
+        this.label.setAttribute("transform", `translate(${w/2},${h/2}) rotate(${angle})`);
+        this.label.setAttribute("x", String(x));
+        this.label.setAttribute("y", String(y));
+        this.label.setAttribute("font-size", String(s.fontSize));
+        // Scaling acts on the actual SVG text bounds. Both width and height are
+        // measured in the rotated text coordinate system, so no cropping occurs.
+        if (s.autoFit && logicalW > 0 && logicalH > 0 && this.value) {
+            try {
+                const bounds = this.label.getBBox();
+                const scale = Math.min(1, logicalW / Math.max(1, bounds.width), logicalH / Math.max(1, bounds.height));
+                if (Number.isFinite(scale) && scale > 0) {
+                    this.label.setAttribute("font-size", String(Math.max(1, s.fontSize * scale * 0.98)));
+                }
+            } catch (_) { /* browser has not laid out the text yet */ }
+        }
+        this.label.setAttribute("aria-label", this.value);
+    }
+
+    public enumerateObjectInstances(options: EnumerateVisualObjectInstancesOptions): VisualObjectInstance[] {
+        const s = this.settings;
+        switch (options.objectName) {
+            case "direction": return [{objectName: "direction", selector: undefined, properties: { orientation: s.orientation }}];
+            case "textStyle": return [{objectName: "textStyle", selector: undefined, properties: {
+                fontFamily: s.fontFamily, fontSize: s.fontSize, bold: s.bold, fontColor: fill(s.fontColor),
+                hAlign: s.hAlign, vAlign: s.vAlign, autoFit: s.autoFit, padding: s.padding
+            }}];
+            case "cardBackground": return [{objectName: "cardBackground", selector: undefined, properties: {
+                backgroundColor: fill(s.backgroundColor), transparency: s.transparency,
+                showBorder: s.showBorder, borderColor: fill(s.borderColor), borderWidth: s.borderWidth,
+                cornerRadius: s.cornerRadius
+            }}];
+        }
+        return [];
+    }
+}
