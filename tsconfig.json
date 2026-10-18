@@ -1,18 +1,17 @@
+
 {
   "compilerOptions": {
     "target": "ES2019",
     "module": "commonjs",
-    "lib": [
-      "ES2019",
-      "DOM"
-    ],
-    "strict": true,
+    "lib": ["ES2019", "DOM"],
+    "strict": false,
     "skipLibCheck": true,
     "noEmitOnError": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true
   },
+  "files": ["src/visual.ts"],
   "include": [
     "src/**/*.ts",
     ".tmp/precompile/**/*.ts"
