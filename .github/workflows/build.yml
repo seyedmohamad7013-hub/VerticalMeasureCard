@@ -1,0 +1,41 @@
+
+name: Build Vertical Measure Card
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Power BI Visuals CLI
+        run: npm install -g powerbi-visuals-tools
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Build PBIVIZ package
+        run: pbiviz package
+
+      - name: Verify package
+        run: |
+          test -n "$(find dist -maxdepth 1 -name '*.pbiviz' -print -quit)"
+          unzip -t dist/*.pbiviz
+
+      - name: Upload PBIVIZ
+        uses: actions/upload-artifact@v4
+        with:
+          name: VerticalMeasureCard
+          path: dist/*.pbiviz
+          if-no-files-found: error
