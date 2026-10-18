@@ -1,0 +1,20 @@
+{
+  "visual": {
+    "name": "VerticalMeasureCard",
+    "displayName": "Vertical Measure Card",
+    "guid": "VerticalMeasureCardF9A42DA3DD6847C9B7D8EF01A559EB74",
+    "visualClassName": "Visual",
+    "version": "1.0.0.0",
+    "description": "A configurable rotating text and DAX measure card with responsive sizing.",
+    "supportUrl": "https://community.fabric.microsoft.com/",
+    "gitHubUrl": "https://github.com/microsoft/PowerBI-visuals-tools"
+  },
+  "apiVersion": "5.3.0",
+  "author": {"name": "Vertical Measure Card", "email": "visual.support@example.org"},
+  "assets": {"icon": "assets/icon.png"},
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "externalJS": null,
+  "dependencies": null,
+  "stringResources": []
+}

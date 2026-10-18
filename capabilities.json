@@ -1,0 +1,46 @@
+{
+  "dataRoles": [
+    {"displayName": "Value or text measure", "name": "value", "kind": "GroupingOrMeasure"}
+  ],
+  "dataViewMappings": [{
+    "conditions": [{"value": {"max": 1}}],
+    "single": {"role": "value"}
+  }],
+  "objects": {
+    "direction": {"displayName": "Text direction", "properties": {
+      "orientation": {"displayName": "Orientation", "type": {"enumeration": [
+        {"value": "bottomUp", "displayName": "Bottom to top (−90°)"},
+        {"value": "topDown", "displayName": "Top to bottom (+90°)"},
+        {"value": "horizontal", "displayName": "Horizontal"}
+      ]}}
+    }},
+    "textStyle": {"displayName": "Text", "properties": {
+      "fontFamily": {"displayName": "Font family", "type": {"formatting": {"fontFamily": true}}},
+      "fontSize": {"displayName": "Font size", "type": {"formatting": {"fontSize": true}}},
+      "bold": {"displayName": "Bold", "type": {"bool": true}},
+      "fontColor": {"displayName": "Font color", "type": {"fill": {"solid": {"color": true}}}},
+      "hAlign": {"displayName": "Horizontal alignment", "type": {"enumeration": [
+        {"value": "start", "displayName": "Left"},
+        {"value": "center", "displayName": "Center"},
+        {"value": "end", "displayName": "Right"}
+      ]}},
+      "vAlign": {"displayName": "Vertical alignment", "type": {"enumeration": [
+        {"value": "start", "displayName": "Top"},
+        {"value": "center", "displayName": "Middle"},
+        {"value": "end", "displayName": "Bottom"}
+      ]}},
+      "autoFit": {"displayName": "Automatically scale text to fit", "type": {"bool": true}},
+      "padding": {"displayName": "Padding (px)", "type": {"numeric": true}}
+    }},
+    "cardBackground": {"displayName": "Card background", "properties": {
+      "backgroundColor": {"displayName": "Background color", "type": {"fill": {"solid": {"color": true}}}},
+      "transparency": {"displayName": "Transparency (%)", "type": {"numeric": true}},
+      "showBorder": {"displayName": "Show border", "type": {"bool": true}},
+      "borderColor": {"displayName": "Border color", "type": {"fill": {"solid": {"color": true}}}},
+      "borderWidth": {"displayName": "Border width (px)", "type": {"numeric": true}},
+      "cornerRadius": {"displayName": "Corner radius (px)", "type": {"numeric": true}}
+    }}
+  },
+  "privileges": [],
+  "supportsHighlight": false
+}
